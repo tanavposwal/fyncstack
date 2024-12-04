@@ -1,3 +1,5 @@
+import { db } from '@/db/drizzle'
+import { todo } from '@/db/schema'
 import { Hono } from 'hono'
 import { handle } from 'hono/vercel'
 
@@ -9,6 +11,19 @@ app.get('/hello', (c) => {
   return c.json({
     message: 'Hello Next.js!',
   })
+})
+
+app.get('/todo', async (c)=> {
+  const data = await db.select().from(todo)
+  return c.json({
+    todos: data
+  })
+})
+
+app.post('/todo', async (c) => {
+  const body = await c.req.parseBody()
+  
+  // call db and add todo ...
 })
 
 export const GET = handle(app)

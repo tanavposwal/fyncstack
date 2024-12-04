@@ -23,6 +23,9 @@ app.get('/todo', async (c)=> {
 app.post('/todo', async (c) => {
   const body = await c.req.parseBody()
   
+  return c.json({
+    todo: body["input"]
+  })
   // call db and add todo ...
 })
 

@@ -1,10 +1,13 @@
 import { Button } from "@/components/ui/button";
+import { SignedIn, SignedOut, SignIn, UserButton } from '@clerk/nextjs'
 import Image from "next/image";
 import Marquee from "react-fast-marquee";
 
 export default function Home() {
+
   return (
-    <div className="w-full h-screen flex flex-col items-center justify-center font-[family-name:var(--font-geist-sans)] gap-10 grainy select-none">
+    <div className="w-full min-h-screen flex flex-col items-center justify-center font-[family-name:var(--font-geist-sans)] gap-10 grainy select-none">
+      <section className="flex flex-col gap-10 h-screen items-center justify-center">
       <div className="w-full flex flex-col justify-center items-center gap-3">
         <h1 className="md:text-6xl sm:text-5xl text-4xl font-extrabold">
           FYNC stack
@@ -14,8 +17,9 @@ export default function Home() {
         <div
           className="flex items-center justify-center h-fit  w-full overflow-hidden mx-4 gap-8"
         >
-          <Image src={"/next.svg"} alt="stack" width={80} height={80} draggable="false" />
+          <Image src={"/next.svg"} alt="stack" width={70} height={80} draggable="false" />
           <Image src={"/drizzle.svg"} alt="stack" width={100} height={100} draggable="false" />
+          <Image src={"/clerk.svg"} alt="stack" width={80} height={50} draggable="false" />
           <Image
             src={"/hono.png"}
             alt="stack"
@@ -49,7 +53,6 @@ export default function Home() {
         <li className="mb-2">Save and see your changes instantly.</li>
         <li>Deploy on vercel.🔥</li>
       </ol>
-
       <div className="flex gap-4 items-center">
         <Button asChild>
           <a
@@ -79,6 +82,21 @@ export default function Home() {
           </a>
         </Button>
       </div>
+      </section>
+      <section className="flex flex-col gap-10 h-screen items-center justify-center">
+        <h1 className="md:text-5xl sm:text-4xl text-2xl font-extrabold">Auth with Clerk</h1>
+        <div>
+        <SignedOut>
+            <SignIn routing="hash" />
+          </SignedOut>
+          <SignedIn>
+            <div className="bg-white shadow border h-72 w-72 rounded-lg px-4 py-2 flex flex-col items-center justify-center gap-7">
+              <h3 className="text-lg font-semibold">Voila! Signed in as</h3>
+            <UserButton showName />
+            </div>
+          </SignedIn>
+        </div>
+      </section>
     </div>
   );
 }
